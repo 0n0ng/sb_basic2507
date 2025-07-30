@@ -1,9 +1,14 @@
 package com.std.sbb;
 
+import com.std.sbb.answer.Answer;
+import com.std.sbb.answer.AnswerRepository;
+import com.std.sbb.question.Question;
+import com.std.sbb.question.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -117,7 +122,8 @@ class SbbApplicationTests {
 	}
 
 	@Test
-	@Transactional
+	@Transactional // 메서드가 종료될 때까지 DB세션 유지.
+	@Rollback(false) // 테스트가 실패로 끝나면 다시 롤백한다.
 	void testJpa011() {
 		Optional<Question> oq = this.questionRepository.findById(2);
 		assertTrue(oq.isPresent());
