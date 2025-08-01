@@ -1,0 +1,20 @@
+<!-- layout.html의 기능 (뼈대, 틀)-->
+<!---- head부분을 다른 html파일들에 붙일 필요 없이
+다른 파일에서 만든 내용들을 layout으로 가져와 수정을 용이하게 만들고
+ 웹페이지의 구성요소를 보기 좋게 배치한다.---->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- 기본 템플릿 안에 삽입될 내용 start-->
+    <th:block layout:fragment = "content"></th:block>
+    <!-- 기본 템플릿 안에 삽입될 내용 end-->
+</body>
+</html>
