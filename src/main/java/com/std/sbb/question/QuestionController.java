@@ -1,8 +1,11 @@
 package com.std.sbb.question;
 
+import com.std.sbb.answer.AnswerForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,21 +26,26 @@ public class QuestionController {
     }
 
     @GetMapping( value = "/detail/{id}")
-    public String getQuestion(Model model, @PathVariable("id") Integer id) {
+    public String getQuestion(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
 
         return "question_detail";
     }
     @GetMapping("/create")
-    public String questionCreate() {
+    public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
 
+    // BindingResult 매개변수는 항상 @Valid 매개변수 바로 뒤에 위치해야한다.
+    // @Valid QuestionForm questionForm, BindingResult bindingResult :
+    // QuestionForm 에서 설정한 조건들을 실제로 검사한다.
     @PostMapping("/create")
-    public String questionCreate(@RequestParam(value="subject") String subject, @RequestParam(value="content") String content) {
-        this.questionService.create(subject, content);
-
-        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "question_form";
+        }
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+        return "redirect:/question/list";
     }
 }
