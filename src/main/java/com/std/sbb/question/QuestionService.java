@@ -22,7 +22,7 @@ public class QuestionService {
     }
 
     public Page<Question> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 11);
         return this.questionRepository.findAll(pageable);
     }
 
