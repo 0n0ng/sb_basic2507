@@ -23,6 +23,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    //sort : 리스트 정렬, 기본적으로 오름차순
     public Page<Question> getList(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
