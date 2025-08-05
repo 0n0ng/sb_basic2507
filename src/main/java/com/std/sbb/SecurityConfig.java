@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -14,10 +15,16 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                                                     //permitAll() : 모든 권한 열어둔다. 개발 초기니까?
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                //permitAll() : 모든 권한 열어둔다. 개발 초기니까?
+                // csrf검사 무시하게끔하는 설정, csrf
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+                // XFrameOptions 헤더 : 클릭재킹 공격을 막기위해 사용된다.
+                // 클릭재킹 : 사용자의 의도와 다른 작업이 수행되도록 속이는 보안공격기술.
+                .headers((headers) -> headers
+                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
         ;
         return http.build();
     }
