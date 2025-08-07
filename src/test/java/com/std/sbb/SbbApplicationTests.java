@@ -5,6 +5,7 @@ import com.std.sbb.answer.AnswerRepository;
 import com.std.sbb.question.Question;
 import com.std.sbb.question.QuestionRepository;
 import com.std.sbb.question.QuestionService;
+import com.std.sbb.uesr.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,5 +147,13 @@ class SbbApplicationTests {
 			String content = "내용무";
 			this.questionService.create(subject, content);
 		}
+	}
+
+	@Autowired
+	private UserService userService;
+
+	@Test
+	void testJpa13() {
+		userService.create("test", "test@test.com", "1234");
 	}
 }
