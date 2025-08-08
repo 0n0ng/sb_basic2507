@@ -1,6 +1,7 @@
 package com.std.sbb.question;
 
 import com.std.sbb.answer.Answer;
+import com.std.sbb.uesr.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 }
