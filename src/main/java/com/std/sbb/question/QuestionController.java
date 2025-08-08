@@ -81,6 +81,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
+        //수정버튼 눌렀을 때 기존 내용이 보인다.
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
 
