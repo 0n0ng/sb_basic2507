@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 public class Answer {
+    private LocalDateTime modifyDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
