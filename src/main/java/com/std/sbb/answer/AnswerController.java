@@ -39,11 +39,11 @@ public class AnswerController {
             model.addAttribute("question", question);
             return "question_detail";
         }
-        this.answerService.create(question, answerForm.getContent(), siteUser);
+        Answer answer = this.answerService.create(question, answerForm.getContent(), siteUser);
 
         // 답변 달고서 다시 돌아감
         // 그래서 달린 답변을 바로 확인할 수 있음
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -79,7 +79,8 @@ public class AnswerController {
 
         this.answerService.modify(answer, answerForm.getContent());
 
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+        return String.format("redirect:/question/detail/%s#answer_%s",
+                answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -102,6 +103,7 @@ public class AnswerController {
         Answer answer = this.answerService.getAnswer(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.answerService.vote(answer, siteUser);
-        return String.format("redirect:/answer/detail/%s", id);
+        return String.format("redirect:/question/detail/%s#answer_%s",
+                answer.getQuestion().getId(), answer.getId());
     }
 }

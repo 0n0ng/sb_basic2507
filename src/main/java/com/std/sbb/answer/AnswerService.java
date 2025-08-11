@@ -19,7 +19,7 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
 
 
-    public void create(Question question, String content, SiteUser siteUser) {
+    public Answer create(Question question, String content, SiteUser siteUser) {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
@@ -28,6 +28,7 @@ public class AnswerService {
 
         //this 써도 되고 안 써도 되고
         this.answerRepository.save(answer);
+        return answer;
     }
 
     public Answer getAnswer(Integer id) {
