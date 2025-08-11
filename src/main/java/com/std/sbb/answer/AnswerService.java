@@ -3,6 +3,7 @@ package com.std.sbb.answer;
 import com.std.sbb.DataNotFoundException;
 import com.std.sbb.question.Question;
 import com.std.sbb.uesr.SiteUser;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,11 @@ public class AnswerService {
         } else {
             throw new DataNotFoundException("answer not found");
         }
+    }
+
+    public void modify(Answer answer, String content) {
+        answer.setContent(content);
+        answer.setModifyDate(LocalDateTime.now());
+        this.answerRepository.save(answer);
     }
 }
