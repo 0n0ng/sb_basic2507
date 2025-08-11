@@ -19,12 +19,12 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
 
 
-    public Answer create(Question question, String content, SiteUser siteUser) {
+    public Answer create(Question question, String content, SiteUser author) {
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
         answer.setQuestion(question);
-        answer.setAuthor(siteUser);
+        answer.setAuthor(author);
 
         //this 써도 되고 안 써도 되고
         this.answerRepository.save(answer);

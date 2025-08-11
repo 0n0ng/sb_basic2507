@@ -13,7 +13,6 @@ import java.util.Set;
 @Setter
 @Entity
 public class Answer {
-    private LocalDateTime modifyDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,6 +21,8 @@ public class Answer {
     private String content;
 
     private LocalDateTime createDate;
+
+    private LocalDateTime modifyDate;
 
     @ManyToOne
     private Question question;
