@@ -43,7 +43,7 @@ public class AnswerController {
 
         // 답변 달고서 다시 돌아감
         // 그래서 달린 답변을 바로 확인할 수 있음
-        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion(), answer.getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -94,7 +94,7 @@ public class AnswerController {
 
         this.answerService.delete(answer);
 
-        return String.format("redirect:/question/detail/%s", answer.getQuestion().getId(), answer.getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -105,7 +105,7 @@ public class AnswerController {
 
         this.answerService.vote(answer, siteUser);
 
-        return String.format("redirect:/question/detail/%s#answer_%s",
+        return String.format("redirect:/question/detail/%s",
                 answer.getQuestion().getId());
     }
 }
