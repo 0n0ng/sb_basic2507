@@ -1,0 +1,97 @@
+DROP DATABASE IF EXISTS sbb_dev;
+CREATE DATABASE sbb_dev;
+USE sbb_dev;
+
+SELECt * FROM question;
+
+SELECT * FROM subject;
+
+SELECT  * FROM site_user;
+
+-- 질문 제목
+SELECT *
+FROM question AS Q
+WHERE (
+    Q.subject LIKE '%검색어%'
+);
+
+-- 질문제목 + 질문내용
+SELECT  *
+FROM question AS Q
+WHERE   (
+	Q.subject LIKE '%안녕하세요%'
+	or
+	Q.content LIKE '%안녕하세요%'
+)
+
+--  질문제목 + 질문내용 + 질문자이름
+SELECT *
+FROM question AS Q
+LEFT JOIN site_user AS QA
+ON Q.author_id = QA.id
+WHERE   (
+	Q.subject LIKE '%안녕하세요%'
+	OR
+	Q.content LIKE '%안녕하세요%'
+	OR
+	Q.username LIKE '%검색어%'
+)
+
+-- 질문제목 + 질문내용 + 질문자이름 + 답변내용
+SELECT *
+FROM question AS Q
+LEFT JOIN site_user AS QA
+ON Q.author_id = QA.id
+LEFT JOIN answer AS A
+ON Q.id = A.question_id
+WHERE (
+    Q.subject LIKE '%검색어%'
+    OR
+    Q.content LIKE '%검색어%'
+    OR
+    QA.username LIKE '%검색어%'
+    OR
+    A.content LIKE '%검색어%'
+);
+
+-- 질문제목 + 질문내용 + 질문자이름 + 답변내용 + GROUPING(질문번호기준)
+SELECT *
+FROM question AS Q
+LEFT JOIN site_user AS QA
+ON Q.author_id = QA.id
+LEFT JOIN answer AS A
+ON Q.id = A.question_id
+WHERE (
+    Q.subject LIKE '%검색어%'
+    OR
+    Q.content LIKE '%검색어%'
+    OR
+    QA.username LIKE '%검색어%'
+    OR
+    A.content LIKE '%검색어%'
+)
+GROUP BY Q.id;
+
+-- 질문제목 + 질문내용 + 질문자이름 + 답변내용 + GROUPING(질문번호기준) + 답변자이름
+SELECT *
+FROM question AS Q
+LEFT JOIN site_user AS QA
+ON Q.author_id = QA.id
+LEFT JOIN answer AS A
+ON Q.id = A.question_id
+LEFT JOIN site_user AS AA
+ON A.author_id = AA.id
+WHERE (
+    Q.subject LIKE '%검색어%'
+    OR
+    Q.content LIKE '%검색어%'
+    OR
+    QA.username LIKE '%검색어%'
+    OR
+    A.content LIKE '%검색어%'
+    OR
+    AA.username LIKE '%검색어%'
+)
+GROUP BY Q.id;
+
+

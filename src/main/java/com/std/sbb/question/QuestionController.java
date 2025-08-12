@@ -139,4 +139,11 @@ public class QuestionController {
 
         return voteCount.toString(); // -> detail의 response로 넘어감
     }
+
+    // 조회수 ~
+    public String viewCount(@PathVariable("id") Integer id, Model model) {
+        Question question = this.questionService.getQuestion(id);
+        model.addAttribute("question", question);
+        return "question_list"; // 타임리프나 JSP 등 뷰 이름
+    }
 }

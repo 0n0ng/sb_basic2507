@@ -30,7 +30,7 @@
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td class="text-start">
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
-                <!--                    답변 개수 표시하기-->
+                <!-- 답변 개수 표시하기-->
                 <span class="text-danger small ms-2"
                       th:if="${#lists.size(question.answerList) > 0}"
                       th:text="${#lists.size(question.answerList)}">
@@ -40,6 +40,7 @@
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 <!--              조회수 -->
 <!--            <td th:text="${#viewCounts.size(question.viewCount)}"></td>-->
+            <a th:href="@{|/question/detail/${question.viewCount}|}" th:text="${question.viewCount}"></a>
         </tr>
         </tbody>
     </table>

@@ -35,7 +35,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Page<Question> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
 //    조회수 추가중
-//    @Modifying
-//    @Query("update Question question set question.viewCount = question.viewCount + 1 where q.id = :id")
-//    void incrementViewCountById(Integer id);
+    @Modifying
+    @Query("update Question question set question.viewCount = question.viewCount + 1 where q.id = :id")
+    void incrementViewCountById(Integer id);
 }

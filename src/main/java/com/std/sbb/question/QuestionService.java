@@ -104,13 +104,11 @@ public class QuestionService {
             }
         };
     }
-//    public void updateView(Integer Id, Question question, Subject subject, SiteUser siteUser) {
-//        Question question = questionRepository.findById(id).orElseThrow();
-//
-//        return updateView(question.getId());
-//    }
-//    public void incrementViewCount(Question question, Integer id) {
-//        this.questionRepository.save(question);
-//    }
+    public void updateView(Integer id) {
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("조회할 수 없"));
 
+        question.setViewCount(question.getViewCount() + 1);
+        this.questionRepository.save(question); // 변경 감지로 자동 저장됨
+    }
 }
