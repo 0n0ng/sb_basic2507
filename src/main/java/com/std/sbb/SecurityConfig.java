@@ -21,7 +21,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                                                     //permitAll() : 모든 권한 열어둔다. 개발 초기니까?
+                        //permitAll() : 모든 권한 열어둔다. 개발 초기니까?
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 // csrf검사 무시하게끔하는 설정, csrf
                 .csrf((csrf) -> csrf
@@ -41,10 +41,12 @@ public class SecurityConfig {
         ;
         return http.build();
     }
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

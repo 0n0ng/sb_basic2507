@@ -30,12 +30,13 @@ public class QuestionService {
     public Question getQuestion(Integer id) {
         Optional<Question> oq = this.questionRepository.findById(id);
 
-        if ( oq.isPresent() ) {
+        if (oq.isPresent()) {
             return oq.get();
         } else {
             throw new DataNotFoundException("question not found");
         }
     }
+
     public void create(String subject, String content, SiteUser siteUser) {
         Question q = new Question();
         q.setSubject(subject);
@@ -79,13 +80,14 @@ public class QuestionService {
     }
 
     public void vote(Question question, SiteUser siteUser) {
-        question.getVoter(). add(siteUser);
+        question.getVoter().add(siteUser);
         this.questionRepository.save(question);
     }
 
     private Specification<Question> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거

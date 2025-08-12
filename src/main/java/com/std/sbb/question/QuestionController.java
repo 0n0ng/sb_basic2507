@@ -124,7 +124,9 @@ public class QuestionController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     @ResponseBody
+    // 순서 주의하기
     public String voteQuestion(@PathVariable("id") Integer id, Principal principal) {
+        // 추천 하기 전의 카운트 값
         Question question = this.questionService.getQuestion(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
 
@@ -132,9 +134,9 @@ public class QuestionController {
 
         Question votedQuestion = this.questionService.getQuestion(id);
 
+        //추천 하고 난 후의 카운트값
         Integer voteCount = votedQuestion.getVoter().size();
 
-
-        return voteCount.toString();
+        return voteCount.toString(); // -> detail의 response로 넘어감
     }
 }
