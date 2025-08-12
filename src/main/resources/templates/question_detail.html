@@ -55,6 +55,11 @@
                         <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
                     </div>
                     <div th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <!-- 조회수 표시 추가 -->
+                    <div class="badge bg-light text-dark p-2 text-start">
+                        <div class="mb-2">조회수</div>
+                        <div th:text="${question.viewCount}"></div>
+                    </div>
                 </div>
             </div>
             <div class="my-3">

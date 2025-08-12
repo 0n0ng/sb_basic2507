@@ -39,6 +39,12 @@ public class QuestionService {
         }
     }
 
+//    public Question getQuestion(Integer id) {
+//        questionRepository.incrementViewCountById(id);
+//        return questionRepository.findById(id)
+//                .orElseThrow(() -> new DataNotFoundException("question not found"));
+//    }
+
     public void create(String subject, String content, SiteUser siteUser) {
         Question q = new Question();
         q.setSubject(subject);
@@ -68,6 +74,7 @@ public class QuestionService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         return this.questionRepository.findAllByKeyword(kw, pageable);
+//        questionRepository.incrementViewCountById(id, pageable);
     }
 
     public void modify(Question question, String subject, String content) {
@@ -106,9 +113,7 @@ public class QuestionService {
     }
     public void updateView(Integer id) {
         Question question = questionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("조회할 수 없"));
-
+                .orElseThrow(() -> new RuntimeException("조회할 수 없음"));
         question.setViewCount(question.getViewCount() + 1);
-        this.questionRepository.save(question); // 변경 감지로 자동 저장됨
     }
 }

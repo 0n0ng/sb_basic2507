@@ -1,5 +1,6 @@
 package com.std.sbb.question;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,7 +36,8 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Page<Question> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
 //    조회수 추가중
+    @Transactional
     @Modifying
-    @Query("update Question question set question.viewCount = question.viewCount + 1 where q.id = :id")
-    void incrementViewCountById(Integer id);
+    @Query("update Question question set question.viewCount = question.viewCount + 1 where question.id = :id")
+    void incrementViewCountById(@Param("id") Integer id);
 }

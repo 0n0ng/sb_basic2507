@@ -28,8 +28,8 @@ public class Question {
     private LocalDateTime createDate;
 
     // 조회수 증가
-    @Column
-    private String viewCount;
+    @Column(nullable = false)
+    private Integer viewCount = 0;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Answer> answerList;

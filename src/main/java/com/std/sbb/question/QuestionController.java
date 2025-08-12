@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
@@ -27,12 +26,15 @@ public class QuestionController {
 
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "kw", defaultValue = "") String kw) {
+                       @RequestParam(value = "kw", defaultValue = "") String kw
+//                       @RequestParam(value = "id", defaultValue = "0") int id
+    ){
 
         Page<Question> paging = this.questionService.getList(page, kw);
 
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
+//        model.addAttribute("id", id);
 
         return "question_list";
     }
@@ -42,11 +44,13 @@ public class QuestionController {
             Model model,
             @PathVariable("id") Integer id,
             AnswerForm answerForm) {
+        questionService.updateView(id);
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
 
         return "question_detail";
     }
+
 
     //이 애너테이션을 메서드에 붙이면 해당 메서드는 로그인한 사용자만 호출할 수 있다.
     @PreAuthorize("isAuthenticated()")
@@ -140,10 +144,10 @@ public class QuestionController {
         return voteCount.toString(); // -> detail의 response로 넘어감
     }
 
-    // 조회수 ~
-    public String viewCount(@PathVariable("id") Integer id, Model model) {
-        Question question = this.questionService.getQuestion(id);
-        model.addAttribute("question", question);
-        return "question_list"; // 타임리프나 JSP 등 뷰 이름
-    }
+//    // 조회수 ~
+//    public String viewCount(@PathVariable("id") Integer id, Model model) {
+//        Question question = this.questionService.getQuestion(id);
+//        model.addAttribute("question", question);
+//        return "question_detail"; // 타임리프나 JSP 등 뷰 이름
+//    }
 }
