@@ -27,6 +27,10 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    // 조회수 증가
+    @Column
+    private String viewCount;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Answer> answerList;
 
@@ -35,4 +39,5 @@ public class Question {
 
     @ManyToMany
     Set<SiteUser> voter;
+
 }

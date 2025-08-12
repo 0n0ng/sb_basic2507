@@ -4,6 +4,7 @@ import com.std.sbb.DataNotFoundException;
 import com.std.sbb.answer.Answer;
 import com.std.sbb.uesr.SiteUser;
 import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import javax.security.auth.Subject;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,4 +104,13 @@ public class QuestionService {
             }
         };
     }
+//    public void updateView(Integer Id, Question question, Subject subject, SiteUser siteUser) {
+//        Question question = questionRepository.findById(id).orElseThrow();
+//
+//        return updateView(question.getId());
+//    }
+//    public void incrementViewCount(Question question, Integer id) {
+//        this.questionRepository.save(question);
+//    }
+
 }

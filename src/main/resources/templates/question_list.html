@@ -20,6 +20,7 @@
             <th style="width:50%">제목</th>
             <th>글쓴이</th>
             <th>작성일시</th>
+            <th>조회수</th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +38,8 @@
             </td>
             <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+<!--              조회수 -->
+<!--            <td th:text="${#viewCounts.size(question.viewCount)}"></td>-->
         </tr>
         </tbody>
     </table>
